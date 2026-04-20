@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Project-specific artifacts (non-code)
+pres_projet_rob.pptx
