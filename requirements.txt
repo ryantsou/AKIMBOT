@@ -1,1 +1,2 @@
-# Add your Python dependencies here, one per line
+# Python dependencies : 
+pyqt5-tools
