@@ -67,8 +67,42 @@ Etat verifie le 20/04/2026:
 
 Conclusion: il n'est pas necessaire de relancer la sync si le Gantt ne change pas.
 
+## Branches Git par fonctionnalité
+
+Chaque phase du Gantt correspond à une branche dédiée :
+
+| Branche | Phase |
+|---|---|
+| `feature/initialisation` | 🚀 Initialisation |
+| `feature/gestion` | 📋 Gestion |
+| `feature/conception` | 🏗️ Conception |
+| `feature/client-marty` | 🔌 Client – Marty |
+| `feature/client-ui` | 🖥️ Client – UI |
+| `feature/arbitre` | ⚖️ Arbitre |
+| `feature/integration` | 🔗 Intégration |
+
+### Création des branches
+
+Le script `create_feature_branches.sh` crée toutes les branches depuis `main` en une seule commande :
+
+```bash
+chmod +x create_feature_branches.sh
+./create_feature_branches.sh
+```
+
+Le script est idempotent : il ne recrée pas une branche qui existe déjà.
+
+### Convention de nommage
+
+- Branches de fonctionnalité : `feature/<nom-court>` (minuscules, tirets)
+- Branches de correction : `fix/<description>`
+- Branches de release : `release/<version>`
+
+Toute modification transite par une **Pull Request** vers `main` (branche protégée).
+
 ## Fichiers importants
 
 - `gantt.xlsx`: planning source
 - `sync_gantt_project.py`: synchronisation Gantt -> GitHub
 - `install.sh`: creation de l'environnement local
+- `create_feature_branches.sh`: création des branches Git par fonctionnalité
