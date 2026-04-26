@@ -380,6 +380,8 @@ def main() -> int:
     already_in_project = 0
     failed: List[Tuple[str, str]] = []
 
+    print(f"Synchronisation en cours pour {len(gantt_tasks)} tâches... (cela peut prendre quelques minutes)")
+
     for task in gantt_tasks:
         title = issue_title(task)
         ntitle = normalize(title)
@@ -394,8 +396,10 @@ def main() -> int:
                 already_in_project += 1
             created_issues.append(created_title)
             existing_issue_norm.add(ntitle)
+            print(f"[+] Créé : {title}")
         except RuntimeError as err:
             failed.append((title, str(err)))
+            print(f"[!] Échec : {title} ({err})")
 
     print("Résumé final")
     print(f"- Total tâches Gantt: {len(gantt_tasks)}")
