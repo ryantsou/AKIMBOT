@@ -91,8 +91,8 @@ Toute modification transite par une **Pull Request** vers `master` (branche prot
 ## 📁 Fichiers importants
 
 - `gantt.xlsx`: planning source
-- `sync_gantt_project.py`: synchronisation Gantt -> GitHub
-- `install.sh`: création de l'environnement local
-- `create_feature_branches.sh`: création des branches Git par fonctionnalité
-- `client_robot.py`: l'interface graphique du client (PyQt5)
+- `scripts/sync_gantt_project.py`: synchronisation Gantt -> GitHub
+- `scripts/install.sh`: création de l'environnement local
+- `scripts/create_feature_branches.sh`: création des branches Git par fonctionnalité
+- `client/client_robot.py`: l'interface graphique du client (PyQt5)
 - `requirements.txt`: liste des dépendances Python (FastAPI, PyQt5, etc.)
