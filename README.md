@@ -44,15 +44,15 @@ En résumé, il fait ça :
 
 Pour configurer l'environnement (`.venv`) et installer les dépendances :
 ```bash
-chmod +x install.sh
-./install.sh
+chmod +x scripts/install.sh
+./scripts/install.sh
 ```
 
 ## 🚀 Lancement
 
 **Lancer l'interface Client Robot :**
 ```bash
-.venv/bin/python client_robot.py
+.venv/bin/python client/client_robot.py
 ```
 
 ## 🌿 Branches Git par fonctionnalité
@@ -71,11 +71,11 @@ Chaque phase du Gantt correspond à une branche dédiée :
 
 ### Création des branches
 
-Le script `create_feature_branches.sh` crée toutes les branches depuis `main` en une seule commande :
+Le script `create_feature_branches.sh` crée toutes les branches depuis `master` en une seule commande :
 
 ```bash
-chmod +x create_feature_branches.sh
-./create_feature_branches.sh
+chmod +x scripts/create_feature_branches.sh
+./scripts/create_feature_branches.sh
 ```
 
 Le script est idempotent : il ne recrée pas une branche qui existe déjà.
@@ -86,11 +86,13 @@ Le script est idempotent : il ne recrée pas une branche qui existe déjà.
 - Branches de correction : `fix/<description>`
 - Branches de release : `release/<version>`
 
-Toute modification transite par une **Pull Request** vers `main` (branche protégée).
+Toute modification transite par une **Pull Request** vers `master` (branche protégée).
 
-## Fichiers importants
+## 📁 Fichiers importants
 
 - `gantt.xlsx`: planning source
 - `sync_gantt_project.py`: synchronisation Gantt -> GitHub
-- `install.sh`: creation de l'environnement local
+- `install.sh`: création de l'environnement local
 - `create_feature_branches.sh`: création des branches Git par fonctionnalité
+- `client_robot.py`: l'interface graphique du client (PyQt5)
+- `requirements.txt`: liste des dépendances Python (FastAPI, PyQt5, etc.)
