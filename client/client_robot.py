@@ -1,20 +1,45 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget
-# import martypy
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QVBoxLayout, QWidget, QPushButton
+import martypy
 # import requests
+
+class MockMarty:
+    # Faux robot pour pouvoir tester l'interface sans le matériel
+    def celebrate(self):
+        print("MOCKMarty fait une danse de célébration !")
+        
+    def walk(self, num_steps=2, turn=0):
+        print(f"[MOCK] 🚶 Le faux robot marche : {num_steps} pas, rotation {turn}")
 
 class MartyController:
     # Gère la connexion et les commandes directes au robot Marty
-    def __init__(self, ip_address="192.168.0.100"):
-        self.ip_address = ip_address
+    def __init__(self, method="wifi", address="mock"):
+        self.method = method
+        self.address = address
         self.connected = False
         self.marty = None  # TODO: Initialiser l'objet martypy.Marty() plus tard
 
     def connect(self):
-        # TODO: Implémenter la vraie connexion WiFi ou USB
-        print(f"Tentative de connexion à Marty sur {self.ip_address}...")
-        self.connected = True
-        return self.connected
+        print(f"Tentative de connexion à Marty via {self.method} sur {self.address}...")
+        try:
+            if self.address == "mock":
+                self.marty = MockMarty()
+            else:
+                self.marty = martypy.Marty(self.method, self.address)
+            self.connected = True
+            print("Connexion à Marty réussie !")
+            return True
+        except Exception as e:
+            print(f"Erreur de connexion à Marty : {e}")
+            self.connected = False
+            return False
+
+    def test_mouvement(self):
+        if self.connected and self.marty:
+            print("Test basique : Marty célèbre !")
+            self.marty.celebrate()
+        else:
+            print("Marty n'est pas connecté. Impossible de tester le mouvement.")
 
 class DanceParser:
     # Décode les fichiers .dance pour extraire les séquences de mouvements
@@ -58,9 +83,34 @@ class MainWindow(QMainWindow):
         # Interface temporaire basique
         widget = QWidget()
         layout = QVBoxLayout()
-        layout.addWidget(QLabel("Interface AKIMBOT en cours de construction..."))
+        
+        self.status_label = QLabel("Statut : Déconnecté")
+        layout.addWidget(self.status_label)
+        
+        self.btn_connect = QPushButton("Connecter Marty")
+        self.btn_connect.clicked.connect(self.connect_marty)
+        layout.addWidget(self.btn_connect)
+        
+        self.btn_test = QPushButton("Test : Célébrer")
+        self.btn_test.clicked.connect(self.test_marty)
+        self.btn_test.setEnabled(False)
+        layout.addWidget(self.btn_test)
+        
         widget.setLayout(layout)
         self.setCentralWidget(widget)
+
+    def connect_marty(self):
+        self.status_label.setText("Connexion en cours...")
+        
+        QApplication.processEvents()  # Force le rafraîchissement de l'UI
+        if self.controller.connect():
+            self.status_label.setText(f"Statut : Connecté à Marty ({self.controller.method} - {self.controller.address}) !")
+            self.btn_test.setEnabled(True)
+        else:
+            self.status_label.setText("Statut : Échec de la connexion (vérifiez l'adresse et le robot).")
+
+    def test_marty(self):
+        self.controller.test_mouvement()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
