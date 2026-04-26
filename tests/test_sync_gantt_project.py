@@ -1,7 +1,7 @@
 """Unit tests for sync_gantt_project.py pure-function logic."""
 
 import pytest
-from sync_gantt_project import (
+from scripts.sync_gantt_project import (
     Task,
     build_phase_color,
     col_to_index,

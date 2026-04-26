@@ -15,7 +15,7 @@
 set -euo pipefail
 
 REMOTE="${REMOTE:-origin}"
-BASE_BRANCH="${BASE_BRANCH:-main}"
+BASE_BRANCH="${BASE_BRANCH:-master}"
 
 BRANCHES=(
     "feature/initialisation"
