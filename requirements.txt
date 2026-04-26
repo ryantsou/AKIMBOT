@@ -1,3 +1,7 @@
 # Python dependencies : 
-pyqt5-tools
+PyQt5
 pytest
+martypy
+requests
+fastapi
+uvicorn

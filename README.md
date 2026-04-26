@@ -1,73 +1,61 @@
-# AKIMBOT
+# 🤖 AKIMBOT
 
-Projet de coordination et de suivi pour l'organisation du travail autour du Gantt, du GitHub Project et des issues.
+Bienvenue sur le dépôt du projet **AKIMBOT** ! 
+Il s'agit de notre projet visant à développer un système complet pour contrôler le robot Marty (via une interface graphique) et gérer des affrontements/danses via un serveur arbitre central.
 
-## Attendus du projet
+## 🎯 Les grands objectifs du projet
 
-Selon la presentation du projet, les points attendus sont:
+Pour mener à bien ce projet, voici ce que nous allons développer :
 
-- application client robot (Marty + interface PyQt)
-- application serveur arbitre (API REST + score)
-- gestion des fichiers `.dance` et `.battle`
-- suivi de projet avec GitHub (issues, project, branches, PR)
-- tests, revue de code et demo finale
+- **L'application client robot** : pour piloter Marty et lire les capteurs (interface PyQt + librairie martypy).
+- **L'application serveur arbitre** : une API REST (FastAPI) pour centraliser et calculer les scores.
+- **La gestion des fichiers** : parsing et exécution des chorégraphies (`.dance`) et des règles (`.battle`).
+- **La gestion de projet** : suivi rigoureux sur GitHub (issues, kanban, branches, pull requests).
+- **La qualité** : tests unitaires, revue de code, et bien sûr une démo finale fonctionnelle !
 
-## Intervenants
+## 👥 L'équipe
 
-- RAJHONSON
-- IHEB
-- ILLAS
+- **RAJHONSON**
+- **IHEB**
+- **ILLAS**
 
-## Pourquoi il y a un script de sync
+## ✍️ Convention de nommage des commits
 
-Le planning change souvent, et refaire les issues a la main prend du temps.
-Le script `sync_gantt_project.py` sert surtout a garder GitHub coherent avec le fichier Gantt:
+Pour éviter que notre historique Git ne se transforme en un champ de bataille illisible, on s'est mis d'accord sur la convention suivante : `type(scope): description`
 
-- lire les micro-taches depuis `gantt.xlsx`
-- creer les issues manquantes
-- ajouter les elements dans le GitHub Project
-- ajouter les titres de phase pour que le board reste lisible
+- `feat` : Nouvelle fonctionnalité (ex: `feat(client): ajout du pad directionnel`)
+- `fix` : Correction d'un bug (ex: `fix(arbitre): correction du calcul des scores`)
+- `docs` : Modification de la documentation (ex: `docs: mise à jour du README`)
+- `style` : Formatage, indentation, etc. sans impact sur le code (ex: `style: nettoyage client_robot.py`)
+- `chore` : Maintenance, tâches techniques ou configuration (ex: `chore: ajout de FastAPI dans requirements.txt`)
 
-Si le planning ne bouge presque plus, on peut tres bien fonctionner sans relancer la sync.
+## 🔄 Le script de synchronisation (Optionnel)
 
-## Installation
+Au début, notre planning sur Excel changeait souvent et recréer les issues GitHub à la main devenait vite laborieux. 
+On a donc mis en place le script `sync_gantt_project.py` pour générer automatiquement nos tickets depuis l'Excel. 
 
-1. Rendre le script executable:
+En résumé, il fait ça :
+- Il lit l'onglet Gantt de `gantt.xlsx`.
+- Il crée les tickets manquants sur GitHub et les place dans notre Kanban.
 
+> **Note :** Maintenant que notre backlog est fixe et propre, on n'a normalement plus besoin de relancer ce script ! Tout se passe directement sur GitHub.
+
+## 🛠️ Installation
+
+Pour configurer l'environnement (`.venv`) et installer les dépendances :
 ```bash
 chmod +x install.sh
-```
-
-2. Lancer l'installation:
-
-```bash
 ./install.sh
 ```
 
-Le script cree un environnement virtuel `.venv` puis installe les paquets de `requirements.txt`.
+## 🚀 Lancement
 
-## Utilisation
-
-Execution de la synchronisation:
-
+**Lancer l'interface Client Robot :**
 ```bash
-.venv/bin/python sync_gantt_project.py
+.venv/bin/python client_robot.py
 ```
 
-Le script est idempotent: si tu le relances, il ne recree pas tout depuis zero.
-
-## Statut de synchro actuel
-
-Etat verifie le 20/04/2026:
-
-- 64 taches Gantt detectees
-- 64 issues presentes
-- 64 elements presents dans le GitHub Project
-- 0 tache manquante
-
-Conclusion: il n'est pas necessaire de relancer la sync si le Gantt ne change pas.
-
-## Branches Git par fonctionnalité
+## 🌿 Branches Git par fonctionnalité
 
 Chaque phase du Gantt correspond à une branche dédiée :
 
